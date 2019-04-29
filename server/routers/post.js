@@ -7,8 +7,8 @@ module.exports = function(app) {
 	app.get("/posts/:id", postController.show)
 	app.delete("/posts/:id", postController.remove)
 
-	// app.put("/posts/:id/add_comment", postController.createComment)
-	// app.put("/posts/:id/update_comment/:idComment", postController.updateComment)
+	app.put("/posts/:id/add_comment", postController.createComment)
+	app.put("/posts/:id/update_comment/:idComment", postController.updateComment)
 	app.put("/posts/:id/delete_comment/:idComment", postController.removeComment)
 	app.get("/posts/:id/index_comment", postController.indexComment)
 
