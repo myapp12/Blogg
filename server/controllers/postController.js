@@ -62,5 +62,36 @@ module.exports = {
 				err: "Đã có lỗi xảy ra khi bạn xem chi tiết bài viết"
 			})
 		}
+	},
+
+	like: async function(req, res) {
+		try {
+			const post = await Posts.findById(req.params.id)
+			let lengthLikes = post.likes.length
+			for (var i = 0; i < lengthLikes; ++i) {
+				if (post.likes[i].email === req.body.email) {
+					post.likes.splice(i, 1)
+					break
+				}
+			}
+			if (i === lengthLikes) {
+				post.likes.push({ email: req.body.email })
+			}
+			let newPost = await post.save()
+			res.json(newPost)
+		} catch (error) {
+			res.status(500).send({
+				err: "Đã có lỗi xảy ra khi bạn xem chi tiết bài viết"
+			})
+		}
+	},
+
+	indexLike: async function(req, res) {
+		try {
+			let post = await Posts.findById(req.params.id)
+			res.json(post.likes)
+		} catch (error) {
+			res.send(error + "")
+		}
 	}
 }

@@ -6,4 +6,12 @@ module.exports = function(app) {
 	app.put("/posts/:id", postController.update)
 	app.get("/posts/:id", postController.show)
 	app.delete("/posts/:id", postController.remove)
+
+	app.post("/posts/:id/add_comment", postController.createComment)
+	app.put("/posts/:id/add_comment/:idComment", postController.updateComment)
+	app.delete("/posts/:id/add_comment/:idComment", postController.removeComment)
+	app.get("/posts/:id/add_comment", postController.indexComment)
+
+	app.post("/posts/:id/like", postController.like)
+	app.get("/posts/:id/like", postController.indexLike)
 }

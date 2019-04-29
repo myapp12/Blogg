@@ -6,7 +6,7 @@ const postSchema = Schema({
 	title: String,
 	description: String,
 	comments: [
-		{ 
+		{
 			email: String,
 			content: String
 		}
