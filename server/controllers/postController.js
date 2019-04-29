@@ -6,28 +6,16 @@ module.exports = {
 			const newPost = {
 				title: req.body.title,
 				description: req.body.description,
+				comments: [],
+				likes: [],
 				email: req.body.email
 			}
-			// console.log(newUser);
-			await Users.create(newUser, (err, newUser) => {
-				res.json(newUser)
+
+			await Posts.create(newPost, (err, newPost) => {
+				res.json(newPost)
 			})
 		} catch (error) {
-			console.log(error + "")
-		}
-	},
-	login: async function(req, res) {
-		try {
-			await Users.findOne({ email: req.body.email }, (err, user) => {
-				console.log(user)
-				if (bcrypt.compareSync(req.body.password, user.password)) {
-					res.send("1")
-				} else {
-					res.send("0")
-				}
-			})
-		} catch (error) {
-			console.log(error + "")
+			res.status(500).send(error + "")
 		}
 	}
 }
