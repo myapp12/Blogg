@@ -17,5 +17,29 @@ module.exports = {
 		} catch (error) {
 			res.status(500).send(error + "")
 		}
+	},
+
+	show: async function(req, res) {
+		try {
+			const post = await Posts.findById(req.params.id)
+			res.json(post)
+		} catch (error) {
+			res.status(500).send({
+				err: "Đã có lỗi xảy ra khi bạn xem chi tiết bài viết"
+			})
+		}
+	},
+
+	remove: async function(req, res) {
+		try {
+			const post = await Posts.findByIdAndDelete({ _id: req.params.id })
+			res.json({
+				delPost: post
+			})
+		} catch (error) {
+			res.status(500).send({
+				err: "Đã có lỗi xảy ra khi bạn xóa bài viết"
+			})
+		}
 	}
 }
