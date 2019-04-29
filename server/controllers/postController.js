@@ -111,7 +111,8 @@ module.exports = {
 	indexComment: async function(req, res) {
 		try {
 			let post = await Posts.findById(req.params.id)
-			res.json(post.likes)
+			let postComments = post.comments
+			res.json(postComments)
 		} catch (error) {
 			res.send(error + "")
 		}
