@@ -11,7 +11,7 @@ module.exports = {
 				email: req.body.email
 			}
 
-			let newPost = await Posts.create(newPost, (err, newPost));
+			let newPost = await Posts.create(newPost);
 			res.json(newPost)
 		} catch (error) {
 			res.status(500).send(error + "")
@@ -33,20 +33,20 @@ module.exports = {
 
 	index: async function(req,res){
 		try {
-			let posts = await Posts.find((err,posts));
+			let posts = await Posts.find();
 			res.json(posts);
 		} catch (error) {
+			// console.log(err);
 			res.status(500).send(error + '');
 		}
 	},
 	update: async function(req,res){
 		try {
-			await Posts.findOne({_id: req.params.id },(err,post)=>{
-				post.title = req.body.title;
-				post.description = req.body.description;
-				let newPost = await post.save((err,newPost));
-				res.json(newPost)
-			})
+			let post = await Posts.findOne({_id: req.params.id })
+			post.title = req.body.title;
+			post.description = req.body.description;
+			let newPost = await post.save((err,newPost));
+			res.json(newPost);
 		} catch (error) {
 			res.status(500).send(error + '');
 		}
