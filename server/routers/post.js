@@ -9,8 +9,9 @@ module.exports = function(app) {
 
 	app.put("/posts/:id/add_comment", postController.createComment)
 	app.put("/posts/:id/update_comment/:idComment", postController.updateComment)
-	// app.put("/posts/:id/add_comment/:idComment", postController.removeComment)
-	// app.get("/posts/:id/add_comment", postController.indexComment)
+	app.put("/posts/:id/delete_comment/:idComment", postController.removeComment)
+	app.get("/posts/:id/index_comment", postController.indexComment)
+
 
 	app.post("/posts/:id/like", postController.like)
 	app.get("/posts/:id/like", postController.indexLike)

@@ -119,6 +119,7 @@ module.exports = {
 
 
 
+
 	
 
 
@@ -155,6 +156,34 @@ module.exports = {
 
 		} catch (error) {
 			res.send(error + '')
+		}
+	},
+
+	removeComment: async function(req, res) {
+		try {
+			let post = await Posts.findById(req.params.id)
+			const lengthComments = post.comments.length;
+			for (let i = 0; i < lengthComments ; ++i){
+				if(post.comments[i]._id == req.params.idComment){
+					post.comments.splice(i,1);
+					break;
+				}
+			}
+			let newPost = await post.save();
+			res.json(newPost);
+		} catch (error) {
+			res.send(error + "")
+		}
+	},
+
+	indexComment: async function(req, res) {
+		try {
+			let post = await Posts.findById(req.params.id)
+			let postComments = post.comments
+			res.json(postComments)
+		} catch (error) {
+			res.send(error + "")
+
 		}
 	}
 }
