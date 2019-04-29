@@ -93,5 +93,27 @@ module.exports = {
 		} catch (error) {
 			res.send(error + "")
 		}
+	},
+
+	removeComment: async function(req, res) {
+		try {
+			let post = await Posts.findById(req.params.id)
+			let commentPosition = post.comments.indexOf({ _id: req.body.params })
+			if (commentPosition != -1) {
+				post.comments.splice(commentPosition, 1)
+			}
+			res.json(post.comments)
+		} catch (error) {
+			res.send(error + "")
+		}
+	},
+
+	indexComment: async function(req, res) {
+		try {
+			let post = await Posts.findById(req.params.id)
+			res.json(post.likes)
+		} catch (error) {
+			res.send(error + "")
+		}
 	}
 }
