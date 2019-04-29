@@ -12,7 +12,6 @@ module.exports = function(app) {
 	app.put("/posts/:id/delete_comment/:idComment", postController.removeComment)
 	app.get("/posts/:id/index_comment", postController.indexComment)
 
-
 	app.post("/posts/:id/like", postController.like)
 	app.get("/posts/:id/like", postController.indexLike)
 }

@@ -95,82 +95,52 @@ module.exports = {
 		}
 	},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-	createComment : async function(req,res){
+	createComment: async function(req, res) {
 		try {
-			let post = await Posts.findById(req.params.id);
+			let post = await Posts.findById(req.params.id)
 			let newComment = {
-				email : req.body.email,
-				content : req.body.content
+				email: req.body.email,
+				content: req.body.content
 			}
-			post.comments.push(newComment);
-			let newPost = await post.save();
-			res.json(newPost);
-
+			post.comments.push(newComment)
+			let newPost = await post.save()
+			res.json(newPost)
 		} catch (error) {
-			res.send(error + '')
+			res.send(error + "")
 		}
 	},
-	updateComment: async function(req,res){
+	updateComment: async function(req, res) {
 		try {
-			let post = await Posts.findById(req.params.id);
-			const lengthComments = post.comments.length;
-			for (let i = 0 ; i < lengthComments; ++i){
+			let post = await Posts.findById(req.params.id)
+			const lengthComments = post.comments.length
+			for (let i = 0; i < lengthComments; ++i) {
 				// console.log(post.comments[i]._id)
-				if(post.comments[i]._id == req.params.idComment){
-					post.comments[i].content = req.body.content;
+				if (post.comments[i]._id == req.params.idComment) {
+					post.comments[i].content = req.body.content
 					// console.log(post.comments[i].content);
-					break;
+					break
 				}
 			}
-			
-			let newPost = await post.save();
-			res.json(newPost);
 
+			let newPost = await post.save()
+			res.json(newPost)
 		} catch (error) {
-			res.send(error + '')
+			res.send(error + "")
 		}
 	},
 
 	removeComment: async function(req, res) {
 		try {
 			let post = await Posts.findById(req.params.id)
-			const lengthComments = post.comments.length;
-			for (let i = 0; i < lengthComments ; ++i){
-				if(post.comments[i]._id == req.params.idComment){
-					post.comments.splice(i,1);
-					break;
+			const lengthComments = post.comments.length
+			for (let i = 0; i < lengthComments; ++i) {
+				if (post.comments[i]._id == req.params.idComment) {
+					post.comments.splice(i, 1)
+					break
 				}
 			}
-			let newPost = await post.save();
-			res.json(newPost);
+			let newPost = await post.save()
+			res.json(newPost)
 		} catch (error) {
 			res.send(error + "")
 		}
@@ -183,7 +153,6 @@ module.exports = {
 			res.json(postComments)
 		} catch (error) {
 			res.send(error + "")
-
 		}
 	}
 }
