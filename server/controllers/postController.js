@@ -93,5 +93,68 @@ module.exports = {
 		} catch (error) {
 			res.send(error + "")
 		}
+	},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	createComment : async function(req,res){
+		try {
+			let post = await Posts.findById(req.params.id);
+			let newComment = {
+				email : req.body.email,
+				content : req.body.content
+			}
+			post.comments.push(newComment);
+			let newPost = await post.save();
+			res.json(newPost);
+
+		} catch (error) {
+			res.send(error + '')
+		}
+	},
+	updateComment: async function(req,res){
+		try {
+			let post = await Posts.findById(req.params.id);
+			const lengthComments = post.comments.length;
+			for (let i = 0 ; i < lengthComments; ++i){
+				// console.log(post.comments[i]._id)
+				if(post.comments[i]._id == req.params.idComment){
+					post.comments[i].content = req.body.content;
+					// console.log(post.comments[i].content);
+					break;
+				}
+			}
+			
+			let newPost = await post.save();
+			res.json(newPost);
+
+		} catch (error) {
+			res.send(error + '')
+		}
 	}
 }
